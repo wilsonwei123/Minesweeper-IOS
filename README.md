@@ -1,6 +1,6 @@
 # Minesweeper
 ## Description
-This is a minimalist version of minesweeper, which instead of using the classic minesweeper visuals, has a more modern display. 
+This is a minimalist version of minesweeper. Instead of using the classic minesweeper visuals, it has a simpler, more modern display. 
 ## Roadmap
 - [x] Basic game
 - [x] Customiseable settings
