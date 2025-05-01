@@ -17,6 +17,7 @@ class GameViewModel: ObservableObject, Identifiable {
     var difficulty: Difficulty
     var numOfMines: Int
     var numUncovered: Int
+    var mineSteppedOn = [-1, -1]
     
     enum Difficulty: Int {
         case easy = 1
@@ -84,12 +85,13 @@ class GameViewModel: ObservableObject, Identifiable {
         if indexI < 0 || indexI >= gridSize || indexJ < 0 || indexJ >= gridSize || cells[indexI][indexJ].flagged || cells[indexI][indexJ].uncovered {
             return false
         }
-        cells[indexI][indexJ].uncovered = true
         if cells[indexI][indexJ].isMine {
             gameIsOver = true
             //historyM.saveGame(game: self)
+            self.mineSteppedOn = [indexI, indexJ]
             return true
         }
+        cells[indexI][indexJ].uncovered = true
         numUncovered += 1
         if (numUncovered + numOfMines) == (gridSize * gridSize) {
             gameWin = true

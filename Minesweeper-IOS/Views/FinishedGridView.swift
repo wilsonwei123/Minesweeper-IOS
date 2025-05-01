@@ -18,14 +18,16 @@ struct FinishedGridView: View {
         VStack {
             Text("Status: \(game.gameWin ? "Win" : "Loss")")
                 .font(.headline)
-            Text("Cells uncovered: \(game.numUncovered)\n")
+            Text("Cells uncovered: \(game.numUncovered)")
+                .font(.headline)
+            Text("Percentage uncovered (safe cells only): \(String(format: "%.2f", (100 * Double(game.numUncovered)/(Double(game.gridSize*game.gridSize) - Double(game.numOfMines)))))%\n")
                 .font(.headline)
             ForEach(0..<game.gridSize) { i in
                 HStack {
-                    ForEach(0..<game.gridSize) {j in
+                    ForEach(0..<game.gridSize) { j in
                         ZStack {
                             RoundedRectangle(cornerRadius: 3)
-                                .foregroundStyle(Color.gray.opacity(0.2))
+                                .foregroundStyle((i == game.mineSteppedOn[0] && j == game.mineSteppedOn[1]) ? Color.red.opacity(0.5) : game.cells[i][j].uncovered ? Color.orange.opacity(0.2) : Color.gray.opacity(0.2))
                                 .frame(width: CGFloat(cellSize), height: CGFloat(cellSize))
                             if game.cells[i][j].isMine {
                                 Image(systemName: "burst.fill")
